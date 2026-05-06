@@ -1,6 +1,311 @@
-@import "tailwindcss";
-@layer base {
-  body {
-    @apply bg-gray-50 text-gray-900;
-  }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+a {
+  text-decoration: none;
+  color: #0066cc;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Authentication Pages */
+.auth-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.auth-card {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 400px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.auth-title {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.btn-primary {
+  width: 100%;
+  padding: 10px;
+  background-color: #0066cc;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.btn-primary:hover {
+  background-color: #0052a3;
+}
+
+.auth-link {
+  display: block;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.error-msg {
+  background-color: #ffdddd;
+  color: #d8000c;
+  padding: 10px;
+  border: 1px solid #d8000c;
+  margin-bottom: 15px;
+  border-radius: 4px;
+}
+
+/* Layout */
+.layout-container {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background-color: #333;
+  color: white;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.sidebar-header {
+  padding: 0 20px 20px 20px;
+  border-bottom: 1px solid #444;
+  margin-bottom: 20px;
+}
+
+.brand-title {
+  color: white;
+  margin: 0;
+}
+
+.sidebar-nav {
+  flex: 1;
+}
+
+.nav-item {
+  display: block;
+  padding: 10px 20px;
+  color: #ccc;
+}
+
+.nav-item:hover, .nav-item.active {
+  background-color: #444;
+  color: white;
+  text-decoration: none;
+}
+
+.sidebar-footer {
+  padding: 20px;
+  border-top: 1px solid #444;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  color: #ffdddd;
+}
+
+.main-content {
+  flex: 1;
+  padding: 30px;
+  background-color: #f9f9f9;
+}
+
+.page-header {
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc;
+}
+
+/* Tables */
+.table-container {
+  background-color: white;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 20px;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table th, .data-table td {
+  padding: 12px;
+  border-bottom: 1px solid #eee;
+  text-align: left;
+}
+
+.data-table th {
+  background-color: #f4f4f4;
+  font-weight: bold;
+}
+
+.badge {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+}
+
+.badge-student {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.badge-admin {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #666;
+}
+
+.action-btn.delete:hover {
+  color: red;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: white;
+  padding: 30px;
+  border-radius: 4px;
+  width: 400px;
+}
+
+.modal-actions {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.btn-secondary {
+  padding: 8px 15px;
+  background-color: #ccc;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.btn-danger {
+  padding: 8px 15px;
+  background-color: red;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Dashboard Specifics */
+.card {
+  background-color: white;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.dashboard-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.dashboard-grid > div {
+  flex: 1;
+  min-width: 250px;
+}
+
+.toolbar {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.search-form {
+  display: flex;
+  gap: 10px;
+  flex: 1;
+}
+
+.search-input {
+  flex: 1;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.select-input {
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.mt-4 { margin-top: 20px; }
+.mb-4 { margin-bottom: 20px; }
+.gap-4 { gap: 15px; }

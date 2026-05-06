@@ -56,98 +56,95 @@ const StudentDashboard = () => {
     }
   };
 
-  if (loading) return <div className="text-center mt-10">Loading profile...</div>;
+  if (loading) return <div style={{textAlign: 'center', marginTop: '3rem', color: 'var(--text-secondary)'}}>Loading profile...</div>;
 
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-        <div className="px-4 py-5 sm:px-6">
-          <h3 className="text-lg leading-6 font-medium text-gray-900">Student Profile</h3>
-          <p className="mt-1 max-w-2xl text-sm text-gray-500">Manage your personal and academic details.</p>
+    <div>
+      <div className="page-header">
+        <h1 className="page-title">Student Profile</h1>
+        <p className="page-subtitle">Manage your personal and academic details.</p>
+      </div>
+      
+      <div className="card" style={{maxWidth: '800px', margin: '0 auto'}}>
+        <div className="card-header">
+          <h3 className="card-title">Profile Details</h3>
         </div>
         
         {message.text && (
-          <div className={`p-4 ${message.type === 'success' ? 'bg-green-50 text-green-700' : 'bg-red-50 text-red-700'}`}>
+          <div className="error-msg" style={{
+            backgroundColor: message.type === 'success' ? 'rgba(16, 185, 129, 0.1)' : 'rgba(239, 68, 68, 0.1)',
+            borderColor: message.type === 'success' ? 'rgba(16, 185, 129, 0.2)' : 'rgba(239, 68, 68, 0.2)',
+            color: message.type === 'success' ? '#34d399' : '#fca5a5'
+          }}>
             {message.text}
           </div>
         )}
 
-        <form onSubmit={handleSubmit} className="border-t border-gray-200">
-          <div className="px-4 py-5 sm:p-6 grid grid-cols-1 gap-y-6 gap-x-4 sm:grid-cols-6">
-            
-            {/* User Details */}
-            <div className="sm:col-span-6">
-              <h4 className="text-md font-medium text-indigo-600 mb-4 border-b pb-2">Basic Information</h4>
-            </div>
-
-            <div className="sm:col-span-3">
-              <label className="flex items-center text-sm font-medium text-gray-700">
-                <User className="mr-2 h-4 w-4 text-gray-400" /> Full name
+        <form onSubmit={handleSubmit}>
+          {/* User Details */}
+          <h4 style={{fontSize: '1.1rem', fontWeight: 600, color: 'var(--primary-color)', marginBottom: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem'}}>
+            Basic Information
+          </h4>
+          
+          <div className="dashboard-grid" style={{marginBottom: '1rem'}}>
+            <div className="form-group">
+              <label className="form-label flex" style={{alignItems: 'center', gap: '8px'}}>
+                <User size={16} /> Full name
               </label>
-              <div className="mt-1">
-                <input type="text" value={profile.name} onChange={(e) => setProfile({ ...profile, name: e.target.value })}
-                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border" />
-              </div>
+              <input type="text" value={profile.name} onChange={(e) => setProfile({ ...profile, name: e.target.value })}
+                className="form-input" />
             </div>
 
-            <div className="sm:col-span-3">
-              <label className="flex items-center text-sm font-medium text-gray-700">
-                <Mail className="mr-2 h-4 w-4 text-gray-400" /> Email address
+            <div className="form-group">
+              <label className="form-label flex" style={{alignItems: 'center', gap: '8px'}}>
+                <Mail size={16} /> Email address
               </label>
-              <div className="mt-1">
-                <input type="email" value={profile.email} onChange={(e) => setProfile({ ...profile, email: e.target.value })}
-                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border" />
-              </div>
+              <input type="email" value={profile.email} onChange={(e) => setProfile({ ...profile, email: e.target.value })}
+                className="form-input" />
             </div>
-
-            {/* Academic Details */}
-            <div className="sm:col-span-6 mt-6">
-              <h4 className="text-md font-medium text-indigo-600 mb-4 border-b pb-2">Academic Information</h4>
-            </div>
-
-            <div className="sm:col-span-3">
-              <label className="flex items-center text-sm font-medium text-gray-700">
-                <Hash className="mr-2 h-4 w-4 text-gray-400" /> Student ID
-              </label>
-              <div className="mt-1">
-                <input type="text" disabled value={studentDetails.studentId}
-                  className="bg-gray-100 shadow-sm block w-full sm:text-sm border-gray-300 rounded-md p-2 border text-gray-500 cursor-not-allowed" />
-              </div>
-            </div>
-
-            <div className="sm:col-span-3">
-              <label className="flex items-center text-sm font-medium text-gray-700">
-                <BookOpen className="mr-2 h-4 w-4 text-gray-400" /> Course
-              </label>
-              <div className="mt-1">
-                <input type="text" value={studentDetails.course} onChange={(e) => setStudentDetails({ ...studentDetails, course: e.target.value })}
-                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border" />
-              </div>
-            </div>
-
-            <div className="sm:col-span-3">
-              <label className="flex items-center text-sm font-medium text-gray-700">
-                <MapPin className="mr-2 h-4 w-4 text-gray-400" /> Branch
-              </label>
-              <div className="mt-1">
-                <input type="text" value={studentDetails.branch} onChange={(e) => setStudentDetails({ ...studentDetails, branch: e.target.value })}
-                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border" />
-              </div>
-            </div>
-
-            <div className="sm:col-span-3">
-              <label className="flex items-center text-sm font-medium text-gray-700">
-                <Calendar className="mr-2 h-4 w-4 text-gray-400" /> Year
-              </label>
-              <div className="mt-1">
-                <input type="text" value={studentDetails.year} onChange={(e) => setStudentDetails({ ...studentDetails, year: e.target.value })}
-                  className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-2 border" />
-              </div>
-            </div>
-            
           </div>
-          <div className="px-4 py-3 bg-gray-50 text-right sm:px-6">
-            <button type="submit" className="inline-flex justify-center py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+
+          {/* Academic Details */}
+          <h4 style={{fontSize: '1.1rem', fontWeight: 600, color: 'var(--primary-color)', marginBottom: '1rem', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.5rem', marginTop: '2rem'}}>
+            Academic Information
+          </h4>
+
+          <div className="dashboard-grid">
+            <div className="form-group">
+              <label className="form-label flex" style={{alignItems: 'center', gap: '8px'}}>
+                <Hash size={16} /> Student ID
+              </label>
+              <input type="text" disabled value={studentDetails.studentId}
+                className="form-input" style={{opacity: 0.6, cursor: 'not-allowed'}} />
+            </div>
+
+            <div className="form-group">
+              <label className="form-label flex" style={{alignItems: 'center', gap: '8px'}}>
+                <BookOpen size={16} /> Course
+              </label>
+              <input type="text" value={studentDetails.course} onChange={(e) => setStudentDetails({ ...studentDetails, course: e.target.value })}
+                className="form-input" />
+            </div>
+
+            <div className="form-group">
+              <label className="form-label flex" style={{alignItems: 'center', gap: '8px'}}>
+                <MapPin size={16} /> Branch
+              </label>
+              <input type="text" value={studentDetails.branch} onChange={(e) => setStudentDetails({ ...studentDetails, branch: e.target.value })}
+                className="form-input" />
+            </div>
+
+            <div className="form-group">
+              <label className="form-label flex" style={{alignItems: 'center', gap: '8px'}}>
+                <Calendar size={16} /> Year
+              </label>
+              <input type="text" value={studentDetails.year} onChange={(e) => setStudentDetails({ ...studentDetails, year: e.target.value })}
+                className="form-input" />
+            </div>
+          </div>
+          
+          <div style={{marginTop: '2rem', textAlign: 'right'}}>
+            <button type="submit" className="btn-primary" style={{width: 'auto', padding: '0.8rem 2rem'}}>
               Save changes
             </button>
           </div>
