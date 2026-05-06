@@ -4,7 +4,7 @@ import AuthContext from '../context/AuthContext';
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    name: '', email: '', password: '', role: 'user',
+    name: '', email: '', password: '', role: 'student',
     studentId: '', course: '', branch: '', year: ''
   });
   const [error, setError] = useState('');
@@ -64,18 +64,9 @@ const Register = () => {
               />
             </div>
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700">Role</label>
-              <select name="role" value={formData.role} onChange={handleChange}
-                className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md"
-              >
-                <option value="user">User</option>
-                <option value="student">Student</option>
-              </select>
-            </div>
+            {/* Removed role selection */}
 
-            {formData.role === 'student' && (
-              <div className="space-y-4 border-t pt-4 mt-4">
+            <div className="space-y-4 border-t pt-4 mt-4">
                 <h3 className="text-sm font-medium text-gray-900">Student Details</h3>
                 <div>
                   <label className="block text-xs font-medium text-gray-700">Student ID</label>
@@ -104,7 +95,6 @@ const Register = () => {
                   </div>
                 </div>
               </div>
-            )}
 
             <div>
               <button type="submit" className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">

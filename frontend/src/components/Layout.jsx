@@ -15,7 +15,6 @@ const Layout = () => {
   };
 
   const navItems = {
-    user: [{ name: 'My Profile', path: '/user', icon: User }],
     student: [{ name: 'My Dashboard', path: '/student', icon: LayoutDashboard }],
     admin: [
       { name: 'Admin Dashboard', path: '/admin', icon: LayoutDashboard },

@@ -1,7 +1,6 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import UserDashboard from './pages/UserDashboard';
 import StudentDashboard from './pages/StudentDashboard';
 import AdminDashboard from './pages/AdminDashboard';
 import Layout from './components/Layout';
@@ -17,12 +16,6 @@ function App() {
         
         <Route path="/" element={<Layout />}>
           <Route index element={<Navigate to="/login" replace />} />
-          
-          <Route path="user" element={
-            <ProtectedRoute allowedRoles={['user']}>
-              <UserDashboard />
-            </ProtectedRoute>
-          } />
           
           <Route path="student" element={
             <ProtectedRoute allowedRoles={['student']}>
