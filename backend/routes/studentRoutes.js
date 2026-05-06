@@ -1,15 +1,15 @@
 import express from 'express';
 import { protect } from '../middleware/auth.js';
-import StudentProfile from '../models/StudentProfile.js';
+import User from '../models/User.js';
 
 const router = express.Router();
 
 router.route('/me')
   .get(protect, async (req, res) => {
     try {
-      const profile = await StudentProfile.findOne({ userId: req.user._id });
-      if (profile) {
-        res.json(profile);
+      const user = await User.findById(req.user._id).select('-password');
+      if (user && user.role === 'student') {
+        res.json(user);
       } else {
         res.status(404).json({ message: 'Student profile not found' });
       }
@@ -19,14 +19,14 @@ router.route('/me')
   })
   .put(protect, async (req, res) => {
     try {
-      const profile = await StudentProfile.findOne({ userId: req.user._id });
-      if (profile) {
-        profile.course = req.body.course || profile.course;
-        profile.branch = req.body.branch || profile.branch;
-        profile.year = req.body.year || profile.year;
+      const user = await User.findById(req.user._id);
+      if (user && user.role === 'student') {
+        user.course = req.body.course || user.course;
+        user.branch = req.body.branch || user.branch;
+        user.year = req.body.year || user.year;
         
-        const updatedProfile = await profile.save();
-        res.json(updatedProfile);
+        const updatedUser = await user.save();
+        res.json(updatedUser);
       } else {
         res.status(404).json({ message: 'Student profile not found' });
       }

@@ -1,7 +1,6 @@
 import express from 'express';
 import { protect, admin } from '../middleware/auth.js';
 import User from '../models/User.js';
-import StudentProfile from '../models/StudentProfile.js';
 
 const router = express.Router();
 
@@ -28,26 +27,13 @@ router.get('/users', async (req, res) => {
 router.get('/search', async (req, res) => {
   try {
     const keyword = req.query.query ? {
-      name: { $regex: req.query.query, $options: 'i' }
+      $or: [
+        { name: { $regex: req.query.query, $options: 'i' } },
+        { studentId: { $regex: req.query.query, $options: 'i' } }
+      ]
     } : {};
 
-    let users = await User.find({ ...keyword }).select('-password');
-    
-    // Also search by studentId in StudentProfile
-    if (req.query.query) {
-      const studentProfiles = await StudentProfile.find({
-        studentId: { $regex: req.query.query, $options: 'i' }
-      });
-      const studentUserIds = studentProfiles.map(p => p.userId);
-      const studentUsers = await User.find({ _id: { $in: studentUserIds } }).select('-password');
-      
-      const mergedUsers = [...users, ...studentUsers].reduce((acc, current) => {
-        const x = acc.find(item => item._id.toString() === current._id.toString());
-        if (!x) return acc.concat([current]);
-        return acc;
-      }, []);
-      users = mergedUsers;
-    }
+    const users = await User.find({ ...keyword }).select('-password');
 
     res.json(users);
   } catch (error) {
@@ -73,9 +59,6 @@ router.route('/users/:id')
           return res.status(400).json({ message: 'Cannot delete admin user' });
         }
         await User.deleteOne({ _id: user._id });
-        if (user.role === 'student') {
-          await StudentProfile.deleteOne({ userId: user._id });
-        }
         res.json({ message: 'User removed' });
       } else {
         res.status(404).json({ message: 'User not found' });

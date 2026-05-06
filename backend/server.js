@@ -21,7 +21,7 @@ mongoose.connect(process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/rbac_db')
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.log(err));
 
-// Seed Admin Function
+
 const seedAdmin = async () => {
   try {
     const adminExists = await User.findOne({ email: 'admin@system.com' });
